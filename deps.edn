@@ -1,0 +1,4 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        metasoarous/oz      {:mvn/version "1.6.0-alpha6"}}
+ :aliases {:dev {:extra-paths ["dev" "test" "test-resources" "target"]}}}
