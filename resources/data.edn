@@ -1,0 +1,6 @@
+[{:task "Read"  :start 1  :duration 2 :phase :basic}
+ {:task "Eval"  :start 1  :duration 1 :phase :basic}
+ {:task "Print" :start 2  :duration 3 :phase :basic}
+ {:task "A"     :start 3  :duration 3 :phase :advanced}
+ {:task "B"     :start 15 :duration 2 :phase :advanced}
+ {:task "C"     :start 16 :duration 3 :phase :advanced}]

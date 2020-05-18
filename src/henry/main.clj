@@ -4,9 +4,7 @@
             [clojure.java.io :as io]))
 
 (defn duration->finish [{:keys [start duration] :as m}]
-  (if duration
-    (assoc m :finish (+ start duration))
-    m))
+  (if duration (assoc m :finish (+ start duration)) m))
 
 (defn load-edn [filename]
   (-> filename io/resource slurp edn/read-string))
