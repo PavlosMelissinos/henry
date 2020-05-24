@@ -1,0 +1,11 @@
+{:description  "Project X roadmap"
+ :tasks        [{:id :a :duration 2 :styles [:critical]}
+                {:id :b :duration 1 :styles [:critical]}
+                {:id :c :duration 3 :styles [:major]}
+                {:id :d :duration 3 :styles [:trivial]}
+                {:id :e :duration 2 :styles [:major]}
+                {:id :f :duration 3 :styles [:trivial]}]
+ :dependencies [[:b :a] [:c :b] [:c :a] [:d :c] [:f :e]]
+ :styles       {:critical {:fillcolor "#FF0000" :style "filled"}
+                :major    {:fillcolor "#FFFF00" :style "filled"}
+                :trivial  {:fillcolor "#00FF00" :style "filled"}}}

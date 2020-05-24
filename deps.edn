@@ -1,4 +1,16 @@
 {:paths ["src" "resources"]
- :deps {org.clojure/clojure {:mvn/version "1.10.1"}
-        metasoarous/oz      {:mvn/version "1.6.0-alpha6"}}
- :aliases {:dev {:extra-paths ["dev" "test" "test-resources" "target"]}}}
+ :jvm-opts  ["-XX:-OmitStackTraceInFastThrow"]
+ :deps {org.clojure/clojure   {:mvn/version "1.10.1"}
+        org.clojure/data.json {:mvn/version "1.0.0"}
+        metasoarous/oz        {:mvn/version "1.6.0-alpha6"}
+
+        macroz/tangle         {:mvn/version "0.2.2"}
+
+        ; gantt stuff
+        ubergraph             {:mvn/version "0.8.2"}
+        jafingerhut/cljol     {:git/url "https://github.com/jafingerhut/cljol.git"
+                               :sha "6e8a41961c1536474851aba1686110dfbbce8a4d"}
+        ; dependency for cljol
+        criterium             {:mvn/version "0.4.5"}}
+ :aliases {:dev {:extra-paths ["dev" "test" "test-resources" "target"]}
+           :tasks {:main-opts ["-m" "henry.tangle"]}}}

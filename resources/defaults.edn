@@ -1,0 +1,8 @@
+{:$schema  "https://vega.github.io/schema/vega-lite/v4.json"
+ :encoding {:y     {:field "label" :type "ordinal" :axis {:title "task"}}
+            :x     {:field "start" :type "quantitative" :axis {:title "days"}}
+            :x2    {:field "end" :type "quantitative"}
+            :color {:field "fillcolor" :type "nominal" :scale nil}}
+ :width    1000
+ ;:height   300
+ :mark     "bar"}
