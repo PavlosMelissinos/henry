@@ -12,16 +12,14 @@
 
 (defn ->gantt [{:keys [tasks dependencies styles] :as cfg}]
   (->> (graph/assign-task-beginnings tasks dependencies)
+       (map #(assoc % :label (or (:label %) (:id %))))
        (map #(tangle/style-node % styles))
        (map duration->end)))
 
-(defn enrich [cfg]
-  (assoc cfg :tasks (->gantt cfg)))
-
 (defn run [in-file]
   (let [defaults (-> (io/resource "defaults.edn") slurp edn/read-string)
-        cfg      (-> in-file slurp edn/read-string enrich)
-        data     (assoc-in cfg [:data :values] (:tasks cfg))
+        cfg      (-> in-file slurp edn/read-string)
+        data     (assoc-in cfg [:data :values] (->gantt cfg))
         spec     (merge defaults data)]
     (spit (str/replace in-file #".edn" ".gantt.json")
           (json/write-str spec))
