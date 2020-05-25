@@ -1,13 +1,12 @@
 (ns henry.repl
-  (:require [henry.tangle :as tasks]
-            [henry.gantt :as gantt]))
+  (:require [henry.core :as henry]))
 
 (def modes [:tasks :gantt])
 
 (defn run [mode in-file]
   (condp = mode
-    :tasks (tasks/run in-file)
-    :gantt (gantt/run in-file)))
+    :tasks (henry/build :tasks (henry/load-edn in-file))
+    :gantt (henry/build :gantt (henry/load-gantt-config in-file))))
 
 
 (comment

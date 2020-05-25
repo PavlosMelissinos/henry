@@ -1,16 +1,13 @@
 (ns henry.tangle
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
-            [tangle.core :as tangle]))
-
-(defn style-node [{:keys [styles] :as node} style-def]
-  (let [final-style (apply merge (map #(get style-def %) styles))]
-    (merge node final-style)))
+            [tangle.core :as tangle]
+            [henry.utils :as utils]))
 
 (defn task->dot-node [task styles]
   (if (keyword? task)
     task
-    (-> (style-node task styles)
+    (-> (utils/style-node task styles)
         (select-keys [:id :label :fillcolor :style]))))     ;TODO: tags missing
 
 (defn task-def->dep-graph [{:keys [tasks styles dependencies] :as tasks-def}]
@@ -26,11 +23,14 @@
         edges            (map (juxt second first) dependencies)]
     (tangle/graph->dot stylish-nodes edges options)))
 
+(defn export [dep-graph out-file]
+  (io/copy (tangle/dot->image dep-graph "png")
+           (io/file out-file)))
+
 (defn run [in-file]
   (let [cfg       (-> in-file slurp clojure.edn/read-string)
         dep-graph (task-def->dep-graph cfg)]
-    (io/copy (tangle/dot->image dep-graph "png")
-             (io/file (str/replace in-file #".edn" ".tasks.png")))))
+    (export dep-graph (str/replace in-file #".edn" ".tasks.png"))))
 
 (defn demo []
   (run (io/resource "data.edn")))
