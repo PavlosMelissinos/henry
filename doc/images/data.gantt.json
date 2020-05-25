@@ -1,1 +1,121 @@
-{"description":"Project X roadmap","encoding":{"y":{"field":"label","type":"ordinal","axis":{"title":"task"}},"x":{"field":"start","type":"quantitative","axis":{"title":"days"}},"x2":{"field":"end","type":"quantitative"},"color":{"field":"fillcolor","type":"nominal","scale":null}},"mark":"bar","width":1000,"styles":{"critical":{"fillcolor":"#FF0000","style":"filled"},"major":{"fillcolor":"#FFFF00","style":"filled"},"trivial":{"fillcolor":"#00FF00","style":"filled"}},"$schema":"https:\/\/vega.github.io\/schema\/vega-lite\/v4.json","data":{"values":[{"id":"a","duration":2,"styles":["critical"],"start":0,"label":"a","fillcolor":"#FF0000","style":"filled","end":2},{"id":"b","duration":1,"styles":["critical"],"start":2,"label":"b","fillcolor":"#FF0000","style":"filled","end":3},{"id":"c","duration":3,"styles":["major"],"start":3,"label":"c","fillcolor":"#FFFF00","style":"filled","end":6},{"id":"d","duration":3,"styles":["trivial"],"start":6,"label":"d","fillcolor":"#00FF00","style":"filled","end":9},{"id":"e","duration":2,"styles":["major"],"start":0,"label":"e","fillcolor":"#FFFF00","style":"filled","end":2},{"id":"f","duration":3,"styles":["trivial"],"start":2,"label":"f","fillcolor":"#00FF00","style":"filled","end":5}]}}
+{
+  "description": "Project X roadmap",
+  "encoding": {
+    "y": {
+      "field": "label",
+      "type": "ordinal",
+      "axis": {
+        "title": "task"
+      }
+    },
+    "x": {
+      "field": "start",
+      "type": "quantitative",
+      "axis": {
+        "title": "days"
+      }
+    },
+    "x2": {
+      "field": "end",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "fillcolor",
+      "type": "nominal",
+      "scale": null
+    }
+  },
+  "mark": "bar",
+  "width": 1000,
+  "styles": {
+    "critical": {
+      "fillcolor": "#FF0000",
+      "style": "filled"
+    },
+    "major": {
+      "fillcolor": "#FFFF00",
+      "style": "filled"
+    },
+    "trivial": {
+      "fillcolor": "#00FF00",
+      "style": "filled"
+    }
+  },
+  "$schema": "https:\/\/vega.github.io\/schema\/vega-lite\/v4.json",
+  "data": {
+    "values": [
+      {
+        "id": "a",
+        "duration": 2,
+        "styles": [
+          "critical"
+        ],
+        "start": 0,
+        "label": "a",
+        "fillcolor": "#FF0000",
+        "style": "filled",
+        "end": 2
+      },
+      {
+        "id": "b",
+        "duration": 1,
+        "styles": [
+          "critical"
+        ],
+        "start": 2,
+        "label": "b",
+        "fillcolor": "#FF0000",
+        "style": "filled",
+        "end": 3
+      },
+      {
+        "id": "c",
+        "duration": 3,
+        "styles": [
+          "major"
+        ],
+        "start": 3,
+        "label": "c",
+        "fillcolor": "#FFFF00",
+        "style": "filled",
+        "end": 6
+      },
+      {
+        "id": "d",
+        "duration": 3,
+        "styles": [
+          "trivial"
+        ],
+        "start": 6,
+        "label": "d",
+        "fillcolor": "#00FF00",
+        "style": "filled",
+        "end": 9
+      },
+      {
+        "id": "e",
+        "duration": 2,
+        "styles": [
+          "major"
+        ],
+        "start": 0,
+        "label": "e",
+        "fillcolor": "#FFFF00",
+        "style": "filled",
+        "end": 2
+      },
+      {
+        "id": "f",
+        "duration": 3,
+        "styles": [
+          "trivial"
+        ],
+        "start": 2,
+        "label": "f",
+        "fillcolor": "#00FF00",
+        "style": "filled",
+        "end": 5
+      }
+    ]
+  }
+}
