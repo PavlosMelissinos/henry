@@ -82,3 +82,7 @@ Load the file and generate a task dependency graph
 * [ ] Maybe replace ubergraph with [stuartsierra/dependencies]((https://github.com/metasoarous/oz))
 * [ ] Polish/fix bugs
 * [ ] Single internal representation for both
+* [ ] Export gantt charts to svg (checkout [applied-science/darkstar](https://github.com/applied-science/darkstar))
+* [ ] Support hiccup syntax in styles?
+* [ ] [Dali](https://github.com/stathissideris/dali) vs vega-lite (via oz) for more freedom?
+* [ ] Also maybe [documan](https://github.com/tesni-manu/documan) (based on dali) to generate sequence diagrams?
