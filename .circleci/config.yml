@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  unit_testing:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.502
+    steps:
+      - checkout
+      - add_ssh_keys
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - deps-cache-{{ checksum "deps.edn" }}
+      - run: clojure -A:test
+      - save_cache:
+          key: deps-cache-{{ checksum "deps.edn" }}
+          paths:
+            - ~/.m2
+      - store_test_results:
+          path: test-results
+
+workflows:
+  version: 2
+  all_branches:
+    jobs:
+      - unit_testing
