@@ -17,8 +17,7 @@
                           :directed?        true
                           :node             {:shape :box}
                           :node->id         node->id
-                          :node->descriptor node->descriptor
-                          }
+                          :node->descriptor node->descriptor}
         stylish-nodes    (map #(task->dot-node % styles) tasks)
         edges            (map (juxt second first) dependencies)]
     (tangle/graph->dot stylish-nodes edges options)))
@@ -28,7 +27,7 @@
            (io/file out-file)))
 
 (defn run [in-file]
-  (let [cfg       (-> in-file slurp clojure.edn/read-string)
+  (let [cfg       (-> in-file utils/load-edn)
         dep-graph (task-def->dep-graph cfg)]
     (export dep-graph (str/replace in-file #".edn" ".tasks.png"))))
 

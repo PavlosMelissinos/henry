@@ -6,10 +6,7 @@
             [henry.graph :as graph]
             [henry.utils :as utils]))
 
-(defn load-config [filename]
-  (let [defaults (utils/load-edn (io/resource "defaults.edn"))
-        cfg      (utils/load-edn filename)]
-    (merge defaults cfg)))
+(def default-cfg (utils/load-edn (io/resource "defaults.edn")))
 
 (defn- duration->end [{:keys [start duration] :as m}]
   (if duration (assoc m :end (+ start duration)) m))
@@ -19,7 +16,8 @@
                    (map #(assoc % :label (or (:label %) (:id %))))
                    (map #(utils/style-node % styles))
                    (map duration->end))]
-    (-> (assoc-in cfg [:data :values] tasks)
+    (-> (merge default-cfg cfg)
+        (assoc-in [:data :values] tasks)
         (dissoc :tasks :dependencies))))
 
 (defn ->html [spec out-file]
@@ -29,7 +27,7 @@
   (spit out-file (json/write-str spec)))
 
 (defn run [in-file]
-  (let [cfg  (load-config in-file)
+  (let [cfg  (utils/load-edn in-file)
         spec (convert cfg)]
     (->json spec (str/replace in-file #".edn" ".gantt.json"))
     (->html spec (str/replace in-file #".edn" ".gantt.html"))))
@@ -39,6 +37,6 @@
 
 (comment
   (oz/start-server!)
-  (let [gantt-def (run (io/resource "data.edn"))]
+  (let [gantt-def (-> (io/resource "data.edn") utils/load-edn)]
     (oz/view! gantt-def))
   (oz/view! (load-config)))

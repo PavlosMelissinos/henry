@@ -66,7 +66,7 @@ Require in your namespace
 Load the file and generate a task dependency graph
 
 ```clojure
-(def gantt-def (henry/build :gantt (henry/load-gantt-config "test_resources/data.edn")))
+(def gantt-def (henry/build :gantt (henry/load-edn "test_resources/data.edn")))
 ```
 
 `(henry/gantt->json gantt-def "test_resources/data.gantt.json")` to get a [vega-lite compatible json file](doc/images/data.gantt.json)

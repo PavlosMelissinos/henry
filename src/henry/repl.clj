@@ -6,7 +6,7 @@
 (defn run [mode in-file]
   (condp = mode
     :tasks (henry/build :tasks (henry/load-edn in-file))
-    :gantt (henry/build :gantt (henry/load-gantt-config in-file))))
+    :gantt (henry/build :gantt (henry/load-edn in-file))))
 
 
 (comment
