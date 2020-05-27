@@ -1,0 +1,14 @@
+#kaocha/v1
+{:tests                              [{:id                      :all
+                                       :test-paths              ["test"]
+                                       :source-paths            ["src"]
+                                       :ns-patterns             ["-test$"]}]
+ :kaocha.plugin/randomize            true
+ :kaocha.plugin.profiling/profiling? true
+ :kaocha.plugin.profiling/count      5
+ :kaocha/reporter                    [kaocha.report/documentation]
+ :kaocha.hooks/post-load             [henry.kaocha/post-load-hook]
+ :plugins                            [:kaocha.plugin/hooks
+                                      :kaocha.plugin/notifier
+                                      :kaocha.plugin/profiling
+                                      :kaocha.plugin/print-invocations]}
