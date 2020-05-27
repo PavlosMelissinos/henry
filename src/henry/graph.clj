@@ -20,7 +20,7 @@
   (let [graph (prepare tasks dependencies)
         {:keys [topological-order]} (uber-extras/topsort2 graph)]
     (loop [[n & n-tail] topological-order
-           g        graph]
+           g            graph]
       (if-not n
         (map (partial uber/attrs g) (uber/nodes g))
         (let [n-predecessors      (uber/predecessors g n)

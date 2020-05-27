@@ -15,3 +15,5 @@
 (def gantt->html gantt/->html)
 
 (def gantt->json gantt/->json)
+
+(def gantt->svg gantt/->svg)

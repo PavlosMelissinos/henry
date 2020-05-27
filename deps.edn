@@ -4,8 +4,10 @@
         org.clojure/data.json {:mvn/version "1.0.0"}
 
         ; visualizations
-        macroz/tangle         {:mvn/version "0.2.2"}
-        metasoarous/oz        {:mvn/version "1.6.0-alpha6"}
+        macroz/tangle            {:mvn/version "0.2.2"}
+        metasoarous/oz           {:mvn/version "1.6.0-alpha6"}
+        applied-science/darkstar {:git/url "https://github.com/applied-science/darkstar.git"
+                                  :sha "abd480cc382b7ae143f7902ee9d300cdc1a705cc"}
 
         ; gantt stuff
         ubergraph             {:mvn/version "0.8.2"}
@@ -15,6 +17,6 @@
         }
  :aliases {:dev   {:extra-paths ["dev" "test" "test-resources" "target"]}
            :tasks {:main-opts ["-m" "henry.tangle"]}
-           :test  {:extra-paths ["test" "test-resources"]
+           :test  {:extra-paths ["test" "test_resources"]
                    :extra-deps  {lambdaisland/kaocha  {:mvn/version "0.0-529"}}
                    :main-opts   ["-m" "kaocha.runner" "--config-file" "kaocha.edn"]}}}

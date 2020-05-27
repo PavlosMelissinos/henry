@@ -2,6 +2,8 @@
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
             [clojure.string :as str]
+
+            [applied-science.darkstar :as darkstar]
             [oz.core :as oz]
             [henry.graph :as graph]
             [henry.utils :as utils]))
@@ -26,11 +28,18 @@
 (defn ->json [spec out-file]
   (spit out-file (json/write-str spec)))
 
+(defn ->svg [spec out-file]
+  (-> spec
+      json/write-str
+      darkstar/vega-lite-spec->svg
+      (partial spit out-file)))
+
 (defn run [in-file]
   (let [cfg  (utils/load-edn in-file)
         spec (convert cfg)]
     (->json spec (str/replace in-file #".edn" ".gantt.json"))
-    (->html spec (str/replace in-file #".edn" ".gantt.html"))))
+    (->html spec (str/replace in-file #".edn" ".gantt.html"))
+    (->svg spec (str/replace in-file #".edn" ".gantt.svg"))))
 
 (defn demo []
   (run (io/resource "data.edn")))

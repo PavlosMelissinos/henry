@@ -42,11 +42,9 @@ Require in your namespace
 ```clojure
 (ns example.core
   (:require [henry.core :as henry]))
-```
 
-Load the file and generate a task dependency graph
+;; Load the file and generate a task dependency graph
 
-```clojure
 (def dep-graph (henry/build :tasks (henry/load-edn "test_resources/data.edn")))
 ```
 
@@ -56,25 +54,27 @@ Load the file and generate a task dependency graph
 
 ### Gantt charts
 
-Require in your namespace
-
 ```clojure
 (ns example.core
   (:require [henry.core :as henry]))
+
+;; Load the file and generate a task dependency graph
+
+(def gantt-def (henry/build :gantt (henry/load-edn "test_resources/data.edn"))
 ```
 
-Load the file and generate a task dependency graph
+`` to export the gantt chart as an svg image
+
+![gantt chart html screenshot](doc/images/data.gantt.svg)
 
 ```clojure
-(def gantt-def (henry/build :gantt (henry/load-edn "test_resources/data.edn")))
+;; Export to json file
+(henry/gantt->json gantt-def "test_resources/data.gantt.json") ; to get a vega-lite compatible json file
+;; Export to svg file
+(henry/gantt->svg gantt-def "test_resources/data.gantt.svg")
+;; Export to interactive html file
+(henry/gantt->html gantt-def "test_resources/data.gantt.html") ; generates an interactive html document
 ```
-
-`(henry/gantt->json gantt-def "test_resources/data.gantt.json")` to get a [vega-lite compatible json file](doc/images/data.gantt.json)
-
-`(henry/gantt->html gantt-def "test_resources/data.gantt.html")` to get the gantt chart as a html document
-
-![gantt chart](doc/images/data.gantt.png)
-
 
 ## To-Do
 
@@ -82,7 +82,6 @@ Load the file and generate a task dependency graph
 * [ ] Maybe replace ubergraph with [stuartsierra/dependencies]((https://github.com/metasoarous/oz))
 * [ ] Polish/fix bugs
 * [ ] Single internal representation for both
-* [ ] Export gantt charts to svg (checkout [applied-science/darkstar](https://github.com/applied-science/darkstar))
 * [ ] Support hiccup syntax in styles?
 * [ ] [Dali](https://github.com/stathissideris/dali) vs vega-lite (via oz) for more freedom?
 * [ ] Also maybe [documan](https://github.com/tesni-manu/documan) (based on dali) to generate sequence diagrams?
