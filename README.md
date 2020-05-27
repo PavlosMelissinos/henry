@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/PavlosMelissinos/henry.svg?style=shield)](https://circleci.com/gh/PavlosMelissinos/henry)
+
 ## Description
 
 Henry is a declarative generator of task dependency graphs and gantt charts.
