@@ -1,8 +1,8 @@
-(ns henry.tangle-test
+(ns henry.utils-test
   (:require [clojure.test :refer :all]
-            [henry.tangle :as sut]))
+            [henry.utils :as sut]))
 
-(deftest test-task->dot-node
+(deftest test-style-node
   (let [node   {:id        "task_id"
                 :label     "task label"
                 :duration  3
@@ -13,6 +13,9 @@
                 :tag-c {:fillcolor "#00FF00" :style "filled"}}]
     (is (= {:id        "task_id"
             :label     "task label"
+            :duration  3
             :fillcolor "#00FF00"
-            :style     "filled"}
-           (sut/task->dot-node node styles)))))
+            :style     "filled"
+            :styles    [:tag-c]
+            :phase     :phase-name}
+           (sut/style-node node styles)))))
