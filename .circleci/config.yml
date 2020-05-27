@@ -22,6 +22,18 @@ jobs:
 
 workflows:
   version: 2
-  all_branches:
+  feature_branches:
     jobs:
-      - unit_testing
+      - unit_testing:
+          filters:
+            branches:
+              ignore:
+                - master
+
+  master:
+    jobs:
+      - unit_testing:
+          filters:
+            branches:
+              only:
+                - master
