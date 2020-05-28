@@ -1,7 +1,6 @@
 (ns henry.graph
   (:require [ubergraph.core :as uber]
-            [ubergraph.alg :as alg]
-            [cljol.ubergraph-extras :as uber-extras]))
+            [ubergraph.alg :as alg]))
 
 (defn node-attrs [g & nodes]
   (map (partial uber/attrs g) nodes))
@@ -18,7 +17,7 @@
 
 (defn assign-task-beginnings [tasks dependencies]
   (let [graph (prepare tasks dependencies)
-        {:keys [topological-order]} (uber-extras/topsort2 graph)]
+        topological-order (alg/topsort graph)]
     (loop [[n & n-tail] topological-order
            g            graph]
       (if-not n
@@ -54,5 +53,4 @@
 
                [:dash_slack_notification :dash_sqs_utils]
                [:dash_slack_notification :basic_automation]]]
-    (-> (apply uber/digraph edges)
-        (uber-extras/topsort2 {:sorted-in-edges true}))))
+    (alg/topsort (apply uber/digraph edges))))

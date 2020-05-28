@@ -10,8 +10,8 @@
 
 
 (comment
-  (run :tasks "test_resources/ml-data.edn")
-  (run :gantt "test_resources/ml-data.edn")
+  (run :tasks "test_resources/ml_data.edn")
+  (run :gantt "test_resources/ml_data.edn")
 
   (doseq [mode modes]
-    (run mode "/home/pavlos/Data/henry/ml-data.edn")))
+    (run mode "/home/pavlos/Data/henry/ml_data.edn")))

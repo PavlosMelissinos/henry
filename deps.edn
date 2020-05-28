@@ -9,14 +9,10 @@
         applied-science/darkstar {:git/url "https://github.com/applied-science/darkstar.git"
                                   :sha "abd480cc382b7ae143f7902ee9d300cdc1a705cc"}
 
-        ; gantt stuff
-        ubergraph             {:mvn/version "0.8.2"}
-        jafingerhut/cljol     {:git/url "https://github.com/jafingerhut/cljol.git"
-                               :sha "6e8a41961c1536474851aba1686110dfbbce8a4d"}
-        criterium             {:mvn/version "0.4.5"} ;dependency for cljol
-        }
- :aliases {:dev   {:extra-paths ["dev" "test" "test-resources" "target"]}
+        ; graph stuff
+        ubergraph {:mvn/version "0.8.2"}}
+ :aliases {:dev   {:extra-paths ["dev" "test" "test_resources" "target"]}
            :tasks {:main-opts ["-m" "henry.tangle"]}
            :test  {:extra-paths ["test" "test_resources"]
-                   :extra-deps  {lambdaisland/kaocha  {:mvn/version "0.0-529"}}
+                   :extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.632"}}
                    :main-opts   ["-m" "kaocha.runner" "--config-file" "kaocha.edn"]}}}

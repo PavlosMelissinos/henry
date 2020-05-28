@@ -1,9 +1,6 @@
 (ns henry.graph-test
   (:require [clojure.test :refer :all]
-            [henry.graph :as sut]
-            [ubergraph.core :as uber]
-            [ubergraph.alg :as uberalg]
-            [cljol.ubergraph-extras :as uber-extras]))
+            [henry.graph :as sut]))
 
 
 (deftest test-node-end
