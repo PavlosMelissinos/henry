@@ -8,7 +8,8 @@ The following libraries have been used:
 
 1. [Engelberg/ubergraph](https://github.com/Engelberg/ubergraph), [jafingerhut/cljol](https://github.com/jafingerhut/cljol) - to manipulate graphs
 2. [macroz/tangle](https://github.com/macroz/tangle) - to visualize dependency graphs
-3. [metasoarous/oz](https://github.com/metasoarous/oz) - to visualize gantt charts
+3. [metasoarous/oz](https://github.com/metasoarous/oz) - to visualize gantt charts (png/html)
+4. [applied-science/darkstar](https://github.com/applied-science/darkstar) - to visualize gantt charts (svg)
 
 ## Setup
 
