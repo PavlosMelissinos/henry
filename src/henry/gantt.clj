@@ -29,10 +29,10 @@
   (spit out-file (json/write-str spec)))
 
 (defn ->svg [spec out-file]
-  (-> spec
-      json/write-str
-      darkstar/vega-lite-spec->svg
-      (partial spit out-file)))
+  (let [svg (-> spec
+                json/write-str
+                darkstar/vega-lite-spec->svg)]
+    (spit out-file svg)))
 
 (defn run [in-file]
   (let [cfg  (utils/load-edn in-file)

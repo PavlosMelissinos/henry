@@ -1,12 +1,15 @@
+[![CircleCI](https://circleci.com/gh/PavlosMelissinos/henry.svg?style=shield)](https://circleci.com/gh/PavlosMelissinos/henry)
+
 ## Description
 
 Henry is a declarative generator of task dependency graphs and gantt charts.
 
 The following libraries have been used:
 
-1. [Engelberg/ubergraph](https://github.com/Engelberg/ubergraph), [jafingerhut/cljol](https://github.com/jafingerhut/cljol) - to manipulate graphs
+1. [Engelberg/ubergraph](https://github.com/Engelberg/ubergraph) - to manipulate graphs
 2. [macroz/tangle](https://github.com/macroz/tangle) - to visualize dependency graphs
-3. [metasoarous/oz](https://github.com/metasoarous/oz) - to visualize gantt charts
+3. [metasoarous/oz](https://github.com/metasoarous/oz) - to visualize gantt charts (png/html)
+4. [applied-science/darkstar](https://github.com/applied-science/darkstar) - to visualize gantt charts (svg)
 
 ## Setup
 
@@ -61,13 +64,7 @@ Require in your namespace
 ;; Load the file and generate a task dependency graph
 
 (def gantt-def (henry/build :gantt (henry/load-edn "test_resources/data.edn"))
-```
 
-`` to export the gantt chart as an svg image
-
-![gantt chart html screenshot](doc/images/data.gantt.svg)
-
-```clojure
 ;; Export to json file
 (henry/gantt->json gantt-def "test_resources/data.gantt.json") ; to get a vega-lite compatible json file
 ;; Export to svg file
@@ -76,10 +73,12 @@ Require in your namespace
 (henry/gantt->html gantt-def "test_resources/data.gantt.html") ; generates an interactive html document
 ```
 
+![gantt chart html screenshot](doc/images/data.gantt.svg)
+
 ## To-Do
 
 * [ ] Improve vega-lite defaults
-* [ ] Maybe replace ubergraph with [stuartsierra/dependencies]((https://github.com/metasoarous/oz))
+* [ ] Maybe replace ubergraph with [weavejester/dependency](https://github.com/weavejester/dependency)
 * [ ] Polish/fix bugs
 * [ ] Single internal representation for both
 * [ ] Support hiccup syntax in styles?
