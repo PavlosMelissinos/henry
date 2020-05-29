@@ -1,6 +1,7 @@
 (ns henry.graph-test
   (:require [clojure.test :refer :all]
-            [henry.graph :as sut]))
+            [henry.graph :as sut]
+            [ubergraph.core :as uber]))
 
 
 (deftest test-node-end
@@ -20,11 +21,12 @@
                       {:id :d :duration 3}
                       {:id :e :duration 1}
                       {:id :f :duration 1}]
-        dependencies [[:d :c] [:c :b] [:b :a] [:c :a] [:f :e]]]
+        dependencies [[:d :c] [:c :b] [:b :a] [:c :a] [:f :e]]
+        graph        (sut/build tasks dependencies)]
     (is (= [{:id :a :duration 2 :start 0}
             {:id :b :duration 1 :start 2}
             {:id :c :duration 3 :start 3}
             {:id :d :duration 3 :start 6}
             {:id :e :duration 1 :start 0}
             {:id :f :duration 1 :start 1}]
-           (sut/assign-task-beginnings tasks dependencies)))))
+           (sut/assign-task-beginnings graph)))))

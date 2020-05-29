@@ -10,6 +10,7 @@
                                   :sha "abd480cc382b7ae143f7902ee9d300cdc1a705cc"}
 
         ; graph stuff
+        weavejester/dependency {:mvn/version "0.2.1"}
         ubergraph {:mvn/version "0.8.2"}}
  :aliases {:dev   {:extra-paths ["dev" "test" "test_resources" "target"]}
            :tasks {:main-opts ["-m" "henry.tangle"]}
