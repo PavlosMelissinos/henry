@@ -10,9 +10,9 @@
                                   :sha "abd480cc382b7ae143f7902ee9d300cdc1a705cc"}
 
         ; graph stuff
-        ubergraph {:mvn/version "0.8.2"}}
+        weavejester/dependency {:mvn/version "0.2.1"}}
  :aliases {:dev   {:extra-paths ["dev" "test" "test_resources" "target"]}
-           :tasks {:main-opts ["-m" "henry.tangle"]}
+           ;:tasks {:main-opts ["-m" "henry.tangle"]}
            :test  {:extra-paths ["test" "test_resources"]
                    :extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.632"}}
                    :main-opts   ["-m" "kaocha.runner" "--config-file" "kaocha.edn"]}}}

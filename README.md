@@ -6,8 +6,8 @@ Henry is a declarative generator of task dependency graphs and gantt charts.
 
 The following libraries have been used:
 
-1. [Engelberg/ubergraph](https://github.com/Engelberg/ubergraph) - to manipulate graphs
-2. [macroz/tangle](https://github.com/macroz/tangle) - to visualize dependency graphs
+1. [weavejester/dependency](https://github.com/weavejester/dependency) - to manipulate graphs
+2. [macroz/tangle](https://github.com/macroz/tangle) - to visualize dependency graphs (png)
 3. [metasoarous/oz](https://github.com/metasoarous/oz) - to visualize gantt charts (png/html)
 4. [applied-science/darkstar](https://github.com/applied-science/darkstar) - to visualize gantt charts (svg)
 
@@ -78,9 +78,9 @@ Require in your namespace
 ## To-Do
 
 * [ ] Improve vega-lite defaults
-* [ ] Maybe replace ubergraph with [weavejester/dependency](https://github.com/weavejester/dependency)
 * [ ] Polish/fix bugs
 * [ ] Single internal representation for both
 * [ ] Support hiccup syntax in styles?
 * [ ] [Dali](https://github.com/stathissideris/dali) vs vega-lite (via oz) for more freedom?
 * [ ] Also maybe [documan](https://github.com/tesni-manu/documan) (based on dali) to generate sequence diagrams?
+* [ ] Support exporting dependency graphs to svg (tangle/dot not working properly? investigate)
