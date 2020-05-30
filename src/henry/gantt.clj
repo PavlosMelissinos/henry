@@ -14,7 +14,8 @@
   (if duration (assoc m :end (+ start duration)) m))
 
 (defn convert [{:keys [tasks dependencies styles] :as cfg}]
-  (let [tasks (->> (graph/assign-task-beginnings tasks dependencies)
+  (let [tasks (->> (graph/build tasks dependencies)
+                   (graph/assign-task-beginnings)
                    (map #(assoc % :label (or (:label %) (:id %))))
                    (map #(utils/style-node % styles))
                    (map duration->end))]

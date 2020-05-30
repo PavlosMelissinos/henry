@@ -27,9 +27,10 @@
            (io/file out-file)))
 
 (defn run [in-file]
-  (let [cfg       (-> in-file utils/load-edn)
-        dep-graph (task-def->dep-graph cfg)]
-    (export dep-graph (str/replace in-file #".edn" ".tasks.png"))))
+  (let [dep-graph (-> in-file utils/load-edn task-def->dep-graph)]
+    (export dep-graph (-> in-file
+                          io/file
+                          (str/replace #".edn" ".tasks.png")))))
 
 (defn demo []
   (run (io/resource "data.edn")))

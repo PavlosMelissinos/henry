@@ -3,6 +3,19 @@
             [henry.graph :as sut]
             [ubergraph.core :as uber]))
 
+(deftest node-attrs
+  (let [tasks        [{:id :a :duration 2}
+                      {:id :b :duration 1}
+                      {:id :c :duration 3}
+                      {:id :d :duration 3}
+                      {:id :e :duration 1}
+                      {:id :f :duration 1}]
+        dependencies [[:d :c] [:c :b] [:b :a] [:c :a] [:f :e]]
+        graph        (sut/build tasks dependencies)]
+    (is (= #{{:id :a :duration 2}
+             {:id :b :duration 1}
+             {:id :c :duration 3}}
+           (sut/node-attrs graph :a :b :c)))))
 
 (deftest test-node-end
   (let [nodes [{:id :e, :duration 1, :start 0}
@@ -23,10 +36,10 @@
                       {:id :f :duration 1}]
         dependencies [[:d :c] [:c :b] [:b :a] [:c :a] [:f :e]]
         graph        (sut/build tasks dependencies)]
-    (is (= [{:id :a :duration 2 :start 0}
-            {:id :b :duration 1 :start 2}
-            {:id :c :duration 3 :start 3}
-            {:id :d :duration 3 :start 6}
-            {:id :e :duration 1 :start 0}
-            {:id :f :duration 1 :start 1}]
+    (is (= #{{:id :a :duration 2 :start 0}
+             {:id :b :duration 1 :start 2}
+             {:id :c :duration 3 :start 3}
+             {:id :d :duration 3 :start 6}
+             {:id :e :duration 1 :start 0}
+             {:id :f :duration 1 :start 1}}
            (sut/assign-task-beginnings graph)))))
