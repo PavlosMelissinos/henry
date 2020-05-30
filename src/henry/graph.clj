@@ -1,6 +1,5 @@
 (ns henry.graph
-  (:require [ubergraph.core :as uber]
-            [weavejester.dependency :as dep]))
+  (:require [weavejester.dependency :as dep]))
 
 (defn node-attrs
   ([g] (node-attrs g (dep/nodes g)))

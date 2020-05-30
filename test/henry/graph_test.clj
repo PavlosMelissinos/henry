@@ -1,7 +1,6 @@
 (ns henry.graph-test
   (:require [clojure.test :refer :all]
-            [henry.graph :as sut]
-            [ubergraph.core :as uber]))
+            [henry.graph :as sut]))
 
 (deftest node-attrs
   (let [tasks        [{:id :a :duration 2}
