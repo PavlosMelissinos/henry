@@ -7,11 +7,10 @@
 (defn task->dot-node [task styles]
   (if (keyword? task)
     task
-    (-> (utils/style-node task styles)
-        (select-keys [:id :label :fillcolor :style]))))     ;TODO: tags missing
+    (utils/style-node task styles)))
 
-(defn task-def->dep-graph [{:keys [tasks styles dependencies] :as tasks-def}]
-  (let [node->id         (fn [n] (name (or (:id n) n)))
+(defn spec->dot [{:keys [tasks styles dependencies] :as spec}]
+  (let [node->id         (fn [n] (-> (:id n) (or n) name))
         node->descriptor (fn [n] (when-not (keyword? n) (update n :id name)))
         options          {:graph            {:rankdir :LR}
                           :directed?        true
@@ -22,12 +21,18 @@
         edges            (map (juxt second first) dependencies)]
     (tangle/graph->dot stylish-nodes edges options)))
 
-(defn export [dep-graph out-file]
-  (io/copy (tangle/dot->image dep-graph "png")
+(defn spec->png [spec]
+  (-> spec spec->dot (tangle/dot->image "png")))
+
+#_(defn spec->svg [spec]
+  (-> spec spec->dot tangle/dot->svg))
+
+(defn export [dot out-file]
+  (io/copy (tangle/dot->image dot "png")
            (io/file out-file)))
 
 (defn run [in-file]
-  (let [dep-graph (-> in-file utils/load-edn task-def->dep-graph)]
+  (let [dep-graph (-> in-file utils/load-edn spec->dot)]
     (export dep-graph (-> in-file
                           io/file
                           (str/replace #".edn" ".tasks.png")))))

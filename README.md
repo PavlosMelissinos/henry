@@ -77,6 +77,7 @@ Require in your namespace
 
 ## To-Do
 
+* [ ] Add specs!
 * [ ] Improve vega-lite defaults
 * [ ] Polish/fix bugs
 * [ ] Single internal representation for both
