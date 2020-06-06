@@ -4,6 +4,7 @@
             [clojure.string :as str]
 
             [applied-science.darkstar :as darkstar]
+            [dali.batik :as batik]
             [oz.core :as oz]
             [henry.graph :as graph]
             [henry.utils :as utils]))
@@ -36,9 +37,18 @@
 
 (defn export [spec format out-file]
   (condp = format
-    "svg"  (spit out-file (svg spec))
-    "json" (spit out-file (json spec))
-    "html" (spit out-file (html spec))))
+    :svg  (spit out-file (svg spec))
+    :json (spit out-file (json spec))
+    :html (spit out-file (html spec))
+    :png  (-> spec
+              svg
+              batik/parse-svg-string
+              (batik/render-document-to-png out-file))
+    (throw (ex-info
+             (format "Invalid format %s"
+                     (str/upper-case (name format)))
+             {:fn :deps
+              :type type}))))
 
 (defn run [in-file]
   (let [spec (-> (utils/load-edn in-file)
@@ -46,9 +56,6 @@
     (doseq [format ["svg" "json" "html"]
             :let [extension (format ".gantt.%s" format)]]
       (export spec format (str/replace in-file #".edn" extension)))))
-
-(defn demo []
-  (run (io/resource "data.edn")))
 
 (comment
   (oz/start-server!)

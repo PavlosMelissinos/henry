@@ -1,0 +1,17 @@
+digraph {
+
+graph[dpi=100, rankdir=LR]
+node[shape=box]
+"a"[id="a", duration=2]
+"b"[id="b", duration=1]
+"c"[id="c", duration=3]
+"d"[id="d", duration=3]
+"e"[id="e", duration=1]
+"f"[id="f", duration=1]
+
+"c" -> "d"
+"b" -> "c"
+"a" -> "b"
+"a" -> "c"
+"e" -> "f"
+}

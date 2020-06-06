@@ -12,11 +12,14 @@
         styles {:tag-a {:fillcolor "#FF5555" :style "filled"}
                 :tag-b {:fillcolor "#FFAABB" :style "filled"}
                 :tag-c {:fillcolor "#00FF00" :style "filled"}}]
-    (is (= {:id        "task_id"
-            :label     "task label"
+    (is (= {:duration  3
             :fillcolor "#00FF00"
-            :style     "filled"}
-           (sut/task->dot-node node styles)))))
+            :id        "task_id"
+            :label     "task label"
+            :phase     :phase-name
+            :style     "filled"
+            :styles    [:tag-c]}
+           (@#'sut/task->dot-node node styles)))))
 
 (deftest test-spec->dot
   (let [tasks        [{:id :a :duration 2}
@@ -29,4 +32,4 @@
         spec         {:tasks        tasks
                       :dependencies dependencies}
         expected     (-> "test-spec-to-dot-expected.dot" io/resource slurp)]
-    (is (= expected (sut/spec->dot spec)))))
+    (is (= expected (sut/dot spec)))))

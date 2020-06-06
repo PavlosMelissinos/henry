@@ -1,17 +1,14 @@
 (ns henry.repl
-  (:require [henry.core :as henry]))
-
-(def modes [:tasks :gantt])
-
-(defn run [mode in-file]
-  (condp = mode
-    :tasks (henry/build :tasks (henry/load-edn in-file))
-    :gantt (henry/build :gantt (henry/load-edn in-file))))
-
+  (:require [henry.core :as henry]
+            [clojure.java.io :as io]))
 
 (comment
-  (run :tasks "test_resources/ml_data.edn")
-  (run :gantt "test_resources/ml_data.edn")
+  (def spec (-> "ml-data.edn"
+                io/resource
+                henry/load-edn))
 
-  (doseq [mode modes]
-    (run mode "/home/pavlos/Data/henry/ml_data.edn")))
+  (henry/convert spec :deps :png)
+  (henry/convert spec :gantt :svg)
+
+  (henry/export spec :deps :png "ml-data.deps.png")
+  (henry/export spec :gantt :svg "ml-data.gantt.svg"))
