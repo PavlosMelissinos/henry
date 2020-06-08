@@ -10,10 +10,11 @@ The following libraries have been used:
 2. [macroz/tangle](https://github.com/macroz/tangle) - to visualize dependency graphs (png)
 3. [metasoarous/oz](https://github.com/metasoarous/oz) - to visualize gantt charts (png/html)
 4. [applied-science/darkstar](https://github.com/applied-science/darkstar) - to visualize gantt charts (svg)
+5. [stathisideris/dali](https://github.com/stathissideris/dali) - to rasterize images (svg to png)
 
 ## Setup
 
-Add the project to your deps.edn:
+Add the project to your deps.edn file:
 
 ```clojure
 {:deps [henry {:git/url "https://github.com/PavlosMelissinos/henry.git"
@@ -40,18 +41,21 @@ Add the project to your deps.edn:
 
 ### Task dependency graphs
 
-Require in your namespace
-
 ```clojure
 (ns example.core
   (:require [henry.core :as henry]))
 
-;; Load the file and generate a task dependency graph
+;; Load the spec
+(def spec (henry/load-edn "test_resources/data.edn"))
 
-(def dep-graph (henry/build :tasks (henry/load-edn "test_resources/data.edn")))
+;; Given a spec, translate to dot syntax
+(def deps (henry/convert spec :deps :dot))
+
+;; Given a spec, generate a png using graphviz
+(henry/export spec :deps :png "test_resources/data.deps.png")
 ```
 
-`(henry/tasks->png dep-graph "test_resources/data.tasks.png")` results in:
+Results in:
 
 ![data.tasks.png](doc/images/data.tasks.png)
 
@@ -61,17 +65,17 @@ Require in your namespace
 (ns example.core
   (:require [henry.core :as henry]))
 
-;; Load the file and generate a task dependency graph
+;; Load the spec
+(def spec (henry/load-edn "test_resources/data.edn"))
 
-(def gantt-def (henry/build :gantt (henry/load-edn "test_resources/data.edn"))
+;; Given a spec, translate to vega-lite (json)
+(henry/convert spec :gantt :json)
 
-;; Export to json file
-(henry/gantt->json gantt-def "test_resources/data.gantt.json") ; to get a vega-lite compatible json file
-;; Export to svg file
-(henry/gantt->svg gantt-def "test_resources/data.gantt.svg")
-;; Export to interactive html file
-(henry/gantt->html gantt-def "test_resources/data.gantt.html") ; generates an interactive html document
+;; Given a spec, export to svg file
+(henry/export spec :gantt :svg "test_resources/data.gantt.svg")
 ```
+
+Results in:
 
 ![gantt chart html screenshot](doc/images/data.gantt.svg)
 
@@ -80,8 +84,7 @@ Require in your namespace
 * [ ] Add specs!
 * [ ] Improve vega-lite defaults
 * [ ] Polish/fix bugs
-* [ ] Single internal representation for both
 * [ ] Support hiccup syntax in styles?
-* [ ] [Dali](https://github.com/stathissideris/dali) vs vega-lite (via oz) for more freedom?
+* [ ] [Dali](https://github.com/stathissideris/dali) vs vega-lite (via oz)?
 * [ ] Also maybe [documan](https://github.com/tesni-manu/documan) (based on dali) to generate sequence diagrams?
 * [ ] Support exporting dependency graphs to svg (tangle/dot not working properly? investigate)

@@ -43,7 +43,7 @@
     :deps  (deps spec format)
     :gantt (gantt spec format)))
 
-(defn export [{:keys [spec mode format out-file] :as ctx}]
+(defn export [spec mode format out-file]
   (condp = (keyword mode)
     :deps  (-> spec deps/dot (deps/export out-file))
     :gantt (-> spec gantt/vega-lite-spec (gantt/export format out-file))
@@ -120,8 +120,8 @@
   (System/exit status))
 
 (defn -main [& args]
-  (let [{:keys[exit-message ok?] :as ctx} (validate-args args)]
+  (let [{:keys[exit-message ok? spec mode format out-file] :as ctx} (validate-args args)]
     (if exit-message
       (exit (if ok? 0 1) exit-message)
-      (do (export ctx)
+      (do (export spec mode format out-file)
           (exit 0 nil)))))
