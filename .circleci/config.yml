@@ -33,7 +33,7 @@ jobs:
       - restore_cache:
           keys:
             - deps-cache-{{ checksum "deps.edn" }}
-      - run: GRAALVM_HOME=./graalvm-ce-java11-20.1.0 clojure -A:native-image && mkdir target && mv henry target
+      - run: GRAALVM_HOME=./graalvm-ce-java11-20.1.0 clojure -A:native-image --verbose && mkdir target && mv henry target
       - save_cache:
           key: deps-cache-{{ checksum "deps.edn" }}
           paths:
