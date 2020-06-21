@@ -1,8 +1,11 @@
 (ns henry.tangle
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
-            [henry.utils :as utils]
-            [tangle.core :as tangle]))
+
+            [tangle.core :as tangle]
+            [taoensso.timbre :as log]
+
+            [henry.utils :as utils]))
 
 (defn- task->dot-node [task styles]
   (if (keyword? task)
@@ -10,6 +13,7 @@
     (utils/style-node task styles)))
 
 (defn dot [{:keys [tasks styles dependencies] :as spec}]
+  (log/info (format "Convert spec to dot format"))
   (let [node->id         (fn [n] (-> (:id n) (or n) name))
         node->descriptor (fn [n] (when-not (keyword? n) (update n :id name)))
         options          {:graph            {:rankdir :LR}
@@ -28,6 +32,7 @@
   (-> spec dot tangle/dot->svg))
 
 (defn export [dot out-file]
+  (log/info (format "Export gantt chart to %s" out-file))
   (io/copy (tangle/dot->image dot "png")
            (io/file out-file)))
 

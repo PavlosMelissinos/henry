@@ -4,6 +4,9 @@
         org.clojure/data.json {:mvn/version "1.0.0"}
         org.clojure/tools.cli {:mvn/version "1.0.194"}
 
+        ; logs
+        com.taoensso/timbre {:mvn/version "4.10.0"}
+
         ; visualizations
         macroz/tangle            {:mvn/version "0.2.2"}
         metasoarous/oz           {:mvn/version "1.6.0-alpha6"}
@@ -14,9 +17,9 @@
 
         ; graph stuff
         weavejester/dependency {:mvn/version "0.2.1"}}
- :aliases {:dev   {:extra-paths ["dev" "test" "test_resources" "target"]}
-           :task-dep {:main-opts ["-m" "henry.core" "--mode" "deps"]}
-           :gantt    {:main-opts ["-m" "henry.core" "--mode" "gantt"]}
-           :test  {:extra-paths ["test" "test_resources"]
-                   :extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.632"}}
-                   :main-opts   ["-m" "kaocha.runner" "--config-file" "kaocha.edn"]}}}
+ :aliases {:dev      {:extra-paths ["dev" "test" "test_resources" "target"]}
+           :task-dep {:main-opts ["-m" "henry.cli" "--mode" "deps"]}
+           :gantt    {:main-opts ["-m" "henry.cli" "--mode" "gantt"]}
+           :test     {:extra-paths ["test" "test_resources"]
+                      :extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.632"}}
+                      :main-opts   ["-m" "kaocha.runner" "--config-file" "kaocha.edn"]}}}

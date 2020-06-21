@@ -6,6 +6,8 @@
             [applied-science.darkstar :as darkstar]
             [dali.batik :as batik]
             [oz.core :as oz]
+            [taoensso.timbre :as log]
+
             [henry.graph :as graph]
             [henry.utils :as utils]))
 
@@ -15,6 +17,7 @@
   (if duration (assoc m :end (+ start duration)) m))
 
 (defn vega-lite-spec [{:keys [tasks dependencies styles] :as cfg}]
+  (log/info "Building vega lite spec...")
   (let [tasks (->> (graph/build tasks dependencies)
                    (graph/assign-task-beginnings)
                    (map #(assoc % :label (or (:label %) (:id %))))
@@ -36,6 +39,7 @@
       darkstar/vega-lite-spec->svg))
 
 (defn export [spec format out-file]
+  (log/info (format "Export gantt chart to %s" out-file))
   (condp = format
     :svg  (spit out-file (svg spec))
     :json (spit out-file (json spec))
