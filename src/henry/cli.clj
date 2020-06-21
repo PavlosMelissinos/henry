@@ -8,7 +8,8 @@
 
             [henry.config :as c]
             [henry.core :as henry]
-            [henry.utils :as utils]))
+            [henry.utils :as utils])
+  (:gen-class))
 
 (def load-edn utils/load-edn)
 

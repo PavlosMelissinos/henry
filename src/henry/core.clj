@@ -4,22 +4,21 @@
             [taoensso.timbre :as log]
 
             [henry.gantt :as gantt]
-            [henry.tangle :as deps])
-  (:gen-class))
+            [henry.tangle :as deps]))
 
 (defn- deps
   "Given an input spec and a target format, generates a task dependency graph.
    Currently supports the png and dot formats."
   ([spec]
    (deps spec :dot))
-  ([spec format]
+  ([spec fmt]
    (log/info "Generating gantt chart...")
-   (condp = (keyword format)
+   (condp = (keyword fmt)
      :png (deps/png spec)
      :dot (deps/dot spec)
      (throw
        (ex-info
-         (format "Invalid format %s" (str/upper-case (name format)))
+         (format "Invalid format %s" (str/upper-case (name fmt)))
          {:fn   :deps
           :type type})))))
 

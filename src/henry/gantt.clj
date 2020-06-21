@@ -38,9 +38,9 @@
       json/write-str
       darkstar/vega-lite-spec->svg))
 
-(defn export [spec format out-file]
+(defn export [spec fmt out-file]
   (log/info (format "Export gantt chart to %s" out-file))
-  (condp = format
+  (condp = fmt
     :svg  (spit out-file (svg spec))
     :json (spit out-file (json spec))
     :html (spit out-file (html spec))
@@ -50,16 +50,16 @@
               (batik/render-document-to-png out-file))
     (throw (ex-info
              (format "Invalid format %s"
-                     (str/upper-case (name format)))
+                     (str/upper-case (name fmt)))
              {:fn :deps
               :type type}))))
 
 (defn run [in-file]
   (let [spec (-> (utils/load-edn in-file)
                  vega-lite-spec)]
-    (doseq [format ["svg" "json" "html"]
-            :let [extension (format ".gantt.%s" format)]]
-      (export spec format (str/replace in-file #".edn" extension)))))
+    (doseq [fmt ["svg" "json" "html"]
+            :let [extension (format ".gantt.%s" fmt)]]
+      (export spec fmt (str/replace in-file #".edn" extension)))))
 
 (comment
   (oz/start-server!)
