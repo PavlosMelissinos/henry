@@ -35,7 +35,8 @@ jobs:
           paths:
             - ~/.m2
       - persist_to_workspace:
-          at: ./target
+          root: .
+          paths: target
       - store_test_results:
           path: test-results
 
