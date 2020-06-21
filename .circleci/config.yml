@@ -19,6 +19,37 @@ jobs:
             - ~/.m2
       - store_test_results:
           path: test-results
+  native_image:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.536
+    steps:
+      - checkout
+      - add_ssh_keys
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - deps-cache-{{ checksum "deps.edn" }}
+      - run: clojure -A:native-image && mkdir target && mv henry target
+      - save_cache:
+          key: deps-cache-{{ checksum "deps.edn" }}
+          paths:
+            - ~/.m2
+      - persist_to_workspace:
+          at: ./target
+      - store_test_results:
+          path: test-results
+
+  publish_github_release:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            VERSION=$(date +%Y%m%d%H%M%S)
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./henry
 
 workflows:
   version: 2
@@ -29,10 +60,31 @@ workflows:
             branches:
               ignore:
                 - master
+      - native_image:
+          requires:
+            - unit_testing
+          filters:
+            branches:
+              ignore:
+                - master
 
   master:
     jobs:
       - unit_testing:
+          filters:
+            branches:
+              only:
+                - master
+      - native_image:
+          requires:
+            - unit_testing
+          filters:
+            branches:
+              only:
+                - master
+      - publish_github_release:
+          requires:
+            - native_image
           filters:
             branches:
               only:
