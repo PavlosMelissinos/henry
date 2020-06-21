@@ -81,10 +81,10 @@ Results in:
 
 ## To-Do
 
-* [ ] Add specs!
-* [ ] Improve vega-lite defaults
 * [ ] Polish/fix bugs
-* [ ] Support hiccup syntax in styles?
 * [ ] [Dali](https://github.com/stathissideris/dali) vs vega-lite (via oz)?
-* [ ] Also maybe [documan](https://github.com/tesni-manu/documan) (based on dali) to generate sequence diagrams?
+* [ ] Improve specs!
 * [ ] Support exporting dependency graphs to svg (tangle/dot not working properly? investigate)
+* [ ] Improve vega-lite defaults
+* [ ] Support hiccup syntax in styles?
+* [ ] Also maybe [documan](https://github.com/tesni-manu/documan) (based on dali) to generate sequence diagrams?
