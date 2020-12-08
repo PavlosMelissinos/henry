@@ -1,8 +1,14 @@
 [![CircleCI](https://circleci.com/gh/PavlosMelissinos/henry.svg?style=shield)](https://circleci.com/gh/PavlosMelissinos/henry)
 
+# henry
+
+> Finance and industry must be socialized somehow.
+>
+> -- Henry Laurence Gantt
+
 ## Description
 
-Henry is a declarative generator of task dependency graphs and gantt charts.
+henry is a declarative generator of task dependency graphs and gantt charts.
 
 The following libraries have been used:
 
