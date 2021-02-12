@@ -19,12 +19,55 @@ jobs:
             - ~/.m2
       - store_test_results:
           path: test-results
+  native_image:
+    docker:
+      - image: circleci/clojure:tools-deps-1.10.1.536
+    steps:
+      - checkout
+      - add_ssh_keys
+      - run: sudo apt-get update && sudo apt-get install build-essential libz-dev zlib1g-dev
+      - run: wget "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-20.1.0/graalvm-ce-java11-linux-amd64-20.1.0.tar.gz"
+      - run: tar zxvf graalvm-ce-java11-linux-amd64-20.1.0.tar.gz
+      - run: ./graalvm-ce-java11-20.1.0/bin/gu install native-image
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - deps-cache-{{ checksum "deps.edn" }}
+      - run: GRAALVM_HOME=./graalvm-ce-java11-20.1.0 clojure -A:native-image --verbose && mkdir target && mv henry target
+      - save_cache:
+          key: deps-cache-{{ checksum "deps.edn" }}
+          paths:
+            - ~/.m2
+      - persist_to_workspace:
+          root: .
+          paths: target
+      - store_test_results:
+          path: test-results
+
+#  publish_github_release:
+#    docker:
+#      - image: cimg/base:2020.01
+#    steps:
+#      - attach_workspace:
+#          at: ./artifacts
+#      - run:
+#          name: "Publish Release on GitHub"
+#          command: |
+#            VERSION=$(date +%Y%m%d%H%M%S)
+#            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./henry
 
 workflows:
   version: 2
   feature_branches:
     jobs:
       - unit_testing:
+          filters:
+            branches:
+              ignore:
+                - master
+      - native_image:
+          requires:
+            - unit_testing
           filters:
             branches:
               ignore:
@@ -37,3 +80,17 @@ workflows:
             branches:
               only:
                 - master
+      - native_image:
+          requires:
+            - unit_testing
+          filters:
+            branches:
+              only:
+                - master
+#      - publish_github_release:
+#          requires:
+#            - native_image
+#          filters:
+#            branches:
+#              only:
+#                - master
