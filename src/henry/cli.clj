@@ -85,6 +85,20 @@
   (println msg)
   (System/exit status))
 
+(defn generate [{:keys [file mode output-fmt]
+                 :or {file "test_resources/data.edn"}
+                 :as _opts}]
+  (let [input-file (str file)
+        spec (if (file-exists? input-file)
+               (load-edn input-file)
+               (throw (ex-info (format "File %s does not exist" input-file)
+                               {:input-file input-file})))
+        out-file (target-file input-file {:mode mode :output-format output-fmt})]
+    (when-not (s/valid? ::c/config spec)
+      (throw (ex-info "Invalid spec" {:spec spec :errors (s/explain-data ::c/config spec)})))
+    (henry/export spec mode output-fmt out-file)
+    (log/info (str "Done! Check out " out-file))))
+
 (defn -main [& args]
   (let [{:keys [exit-message ok?] :as ctx}  (validate-args args)
         {:keys [spec mode format out-file]} ctx]

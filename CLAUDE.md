@@ -29,22 +29,24 @@ henry is a Clojure library for generating task dependency graphs and Gantt chart
 
 ### Running Tests
 ```bash
-# Run all tests via Kaocha
-clj -M:test
+# Run all tests via Kaocha (modern -X syntax)
+clojure -X:test
 
-# Run specific test namespace
+# Run specific test namespace (use legacy -M for focus options)  
 clj -M:test --focus henry.graph-test
 ```
 
 ### CLI Usage
 ```bash
-# Generate dependency graph (PNG)
-clj -M:task-dep test_resources/data.edn
+# Generate dependency graph (PNG) - uses modern -X syntax
+clojure -X:task-dep                               # Uses test_resources/data.edn by default
+clojure -X:task-dep :file path/to/file.edn        # Custom file (no quotes needed)
 
-# Generate Gantt chart (SVG) 
-clj -M:gantt test_resources/data.edn
+# Generate Gantt chart (SVG) - uses modern -X syntax  
+clojure -X:gantt                                  # Uses test_resources/data.edn by default
+clojure -X:gantt :file path/to/file.edn           # Custom file (no quotes needed)
 
-# Custom output format and file
+# Legacy main function approach (still supported)
 clj -m henry.cli --mode gantt --format svg --output-file output.svg test_resources/data.edn
 ```
 

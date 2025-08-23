@@ -18,8 +18,10 @@
             ; graph stuff
             weavejester/dependency   {:mvn/version "0.2.1"}}
  :aliases  {:dev      {:extra-paths ["dev" "test" "test_resources" "target"]}
-            :task-dep {:main-opts ["-m" "henry.cli" "--mode" "deps"]}
-            :gantt    {:main-opts ["-m" "henry.cli" "--mode" "gantt"]}
+            :task-dep {:exec-fn henry.cli/generate
+                       :exec-args {:mode :deps :output-fmt :png}}
+            :gantt    {:exec-fn henry.cli/generate
+                       :exec-args {:mode :gantt :output-fmt :svg}}
             :test     {:extra-paths ["test" "test_resources"]
                        :extra-deps  {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
                        :exec-fn     kaocha.runner/exec-fn
@@ -30,6 +32,6 @@
                                     ;; optional native image name override
                                     "-H:Name=henry"]
                        :jvm-opts   ["-Dclojure.compiler.direct-linking=true"]
-                       :extra-deps {clj.native-image
+                       :extra-deps {clj.native-image/clj.native-image
                                     {:git/url "https://github.com/taylorwood/clj.native-image.git"
                                      :sha     "602587dfb5243ea8c72ed3e967c37c1f9d611723"}}}}}

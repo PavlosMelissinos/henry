@@ -39,5 +39,5 @@ jobs:
 
     - name: Build example outputs
       run: |
-        clojure -X:gantt test_resources/data.edn
-        clojure -X:task-dep test_resources/data.edn
+        clojure -X:gantt
+        clojure -X:task-dep

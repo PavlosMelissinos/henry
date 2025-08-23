@@ -85,6 +85,41 @@ Results in:
 
 ![gantt chart html screenshot](doc/images/data.gantt.svg)
 
+## CLI Usage
+
+henry provides convenient command-line aliases using modern Clojure CLI syntax:
+
+### Generate Gantt Charts
+
+```bash
+# Using default example file (test_resources/data.edn)
+clojure -X:gantt
+
+# Using custom file (no quotes needed)
+clojure -X:gantt :file path/to/your/spec.edn
+```
+
+Generates SVG gantt charts from your task specifications.
+
+### Generate Task Dependency Graphs
+
+```bash
+# Using default example file (test_resources/data.edn)
+clojure -X:task-dep
+
+# Using custom file (no quotes needed)
+clojure -X:task-dep :file path/to/your/spec.edn
+```
+
+Generates PNG dependency graphs showing task relationships.
+
+### Run Tests
+
+```bash
+# Run all tests using Kaocha
+clojure -X:test
+```
+
 ## To-Do
 
 * [ ] Polish/fix bugs
