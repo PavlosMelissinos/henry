@@ -21,8 +21,9 @@
             :task-dep {:main-opts ["-m" "henry.cli" "--mode" "deps"]}
             :gantt    {:main-opts ["-m" "henry.cli" "--mode" "gantt"]}
             :test     {:extra-paths ["test" "test_resources"]
-                       :extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.632"}}
-                       :main-opts   ["-m" "kaocha.runner" "--config-file" "kaocha.edn"]}
+                       :extra-deps  {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
+                       :exec-fn     kaocha.runner/exec-fn
+                       :exec-args   {:config-file "kaocha.edn"}}
             :native-image
                       {:main-opts  ["-m clj.native-image henry.cli"
                                     "--initialize-at-build-time"

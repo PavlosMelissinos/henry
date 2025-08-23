@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Setup Clojure
+      uses: DeLaGuardo/setup-clojure@12.5
+      with:
+        cli: latest
+
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.deps.clj
+        key: ${{ runner.os }}-deps-${{ hashFiles('**/deps.edn') }}
+        restore-keys: |
+          ${{ runner.os }}-deps-
+
+    - name: Run tests
+      run: clojure -X:test
+
+    - name: Build example outputs
+      run: |
+        clojure -X:gantt test_resources/data.edn
+        clojure -X:task-dep test_resources/data.edn

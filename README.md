@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PavlosMelissinos/henry.svg?style=shield)](https://circleci.com/gh/PavlosMelissinos/henry)
+[![CI](https://github.com/PavlosMelissinos/henry/workflows/CI/badge.svg)](https://github.com/PavlosMelissinos/henry/actions)
 
 # henry
 
