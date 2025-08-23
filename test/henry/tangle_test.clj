@@ -1,5 +1,5 @@
 (ns henry.tangle-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [henry.tangle :as sut]
             [clojure.java.io :as io]))
 

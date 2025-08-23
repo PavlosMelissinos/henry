@@ -1,5 +1,5 @@
 (ns henry.graph-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [henry.graph :as sut]))
 
 (deftest node-attrs

@@ -1,5 +1,5 @@
 (ns henry.utils-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is]]
             [henry.utils :as sut]))
 
 (deftest test-style-node
