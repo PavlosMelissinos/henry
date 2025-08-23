@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   unit_testing:
     docker:
-      - image: cimg/clojure:1.12.0
+      - image: cimg/clojure:1.12.0-openjdk-21.0
     steps:
       - checkout
       - add_ssh_keys
