@@ -12,7 +12,7 @@
   ([spec]
    (deps spec :dot))
   ([spec fmt]
-   (log/info "Generating gantt chart...")
+   (log/info "Generating dependency graph...")
    (condp = (keyword fmt)
      :png (deps/png spec)
      :dot (deps/dot spec)

@@ -51,7 +51,7 @@
     (throw (ex-info
              (format "Invalid format %s"
                      (str/upper-case (name fmt)))
-             {:fn :deps
+             {:fn :gantt
               :type type}))))
 
 (defn run [in-file]

@@ -16,12 +16,13 @@
         freqs    (frequencies task-ids)]
     (when (not (apply distinct? task-ids))
       (throw
-        (ex-data {:ex "Duplicate task ids"
-                  :duplicates (into {} (filter #(> (second %) 1) freqs))})))))
+       (ex-info "Duplicate task ids"
+                {:duplicates (into {} (filter #(> (second %) 1) freqs))})))))
 
 
-(defn build [tasks dependencies]
+(defn build
   "Makes a dependency graph from the given collection of tasks"
+  [tasks dependencies]
   (validate-tasks tasks)
   (let [node-attrs (reduce-kv (fn [m k v]
                                 (assoc m k (first v)))

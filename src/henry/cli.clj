@@ -71,8 +71,7 @@
       (:help options) {:exit-message (usage summary) :ok? true}
       errors          {:exit-message (error-msg errors)}
 
-      (not
-        (s/valid? ::c/config spec))
+      (not (s/valid? ::c/config spec))
       {:exit-message (s/explain-str ::c/config spec)}
 
       (= 1 (count arguments))
